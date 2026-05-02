@@ -1,4 +1,4 @@
-const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = require('../config');
+require('dotenv').config();
 const { REST, Routes } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -10,23 +10,21 @@ for (const file of fs.readdirSync(commandsPath).filter(f => f.endsWith('.js'))) 
     if (data) commands.push(data.toJSON());
 }
 
-const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
     try {
         console.log(`Deploying ${commands.length} command(s)...`);
 
-        if (GUILD_ID) {
-            // Guild commands update instantly — use during development
+        if (process.env.GUILD_ID) {
             await rest.put(
-                Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
+                Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
                 { body: commands }
             );
-            console.log(`Deployed ${commands.length} guild command(s) to guild ${GUILD_ID}`);
+            console.log(`Deployed ${commands.length} guild command(s) to guild ${process.env.GUILD_ID}`);
         } else {
-            // Global commands can take up to 1 hour to propagate
             await rest.put(
-                Routes.applicationCommands(CLIENT_ID),
+                Routes.applicationCommands(process.env.CLIENT_ID),
                 { body: commands }
             );
             console.log(`Deployed ${commands.length} global command(s)`);

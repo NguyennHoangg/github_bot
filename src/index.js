@@ -1,4 +1,4 @@
-const { DISCORD_TOKEN } = require('../config');
+require('dotenv').config();
 const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -63,4 +63,4 @@ client.on('voiceStateUpdate', (oldState) => {
     }
 });
 
-client.login(DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN);
