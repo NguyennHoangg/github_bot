@@ -39,7 +39,7 @@ client.on('interactionCreate', async (interaction) => {
         await command.execute(interaction, queues);
     } catch (error) {
         console.error(`[Command Error: ${interaction.commandName}]`, error);
-        const msg = { content: '❌ An error occurred!', ephemeral: true };
+        const msg = { content: ' An error occurred!', ephemeral: true };
         if (interaction.replied || interaction.deferred) {
             await interaction.editReply(msg).catch(() => {});
         } else {
