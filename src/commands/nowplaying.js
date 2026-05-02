@@ -10,16 +10,16 @@ module.exports = {
         const song = queue?.getCurrentSong();
 
         if (!song) {
-            return interaction.reply({ content: '❌ Nothing is playing!', ephemeral: true });
+            return interaction.reply({ content: 'Hien tai khong co bai hat nao dang phat!', ephemeral: true });
         }
 
         const embed = new EmbedBuilder()
             .setColor(0x5865F2)
-            .setTitle('🎵 Now Playing')
+            .setTitle('Dang phat')
             .setDescription(`**[${song.title}](${song.url})**`)
             .addFields(
-                { name: '⏱ Duration', value: song.duration, inline: true },
-                { name: '👤 Requested by', value: song.requestedBy, inline: true }
+                { name: 'Thoi luong', value: song.duration, inline: true },
+                { name: 'Nguoi yeu cau', value: song.requestedBy, inline: true }
             );
         if (song.thumbnail) embed.setThumbnail(song.thumbnail);
 

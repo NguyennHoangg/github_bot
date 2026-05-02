@@ -32,7 +32,7 @@ class MusicQueue {
                 this._startPlaying();
             } else {
                 this.isPlaying = false;
-                this.textChannel?.send('✅ Queue finished! Disconnecting...');
+                this.textChannel?.send('Het hang cho. Bot da ngat ket noi.');
                 this._cleanup();
             }
         });
@@ -41,7 +41,7 @@ class MusicQueue {
             console.error('[Player Error]:', error.message);
             const failed = this.songs[0];
             this.songs.shift();
-            this.textChannel?.send(`❌ Error playing **${failed?.title ?? 'Unknown'}**. Skipping...`);
+            this.textChannel?.send(`Loi khi phat **${failed?.title ?? 'Khong ro ten'}**. Dang bo qua...`);
             if (this.songs.length > 0) {
                 this._startPlaying();
             } else {
@@ -62,17 +62,17 @@ class MusicQueue {
 
             const embed = new EmbedBuilder()
                 .setColor(0x5865F2)
-                .setTitle('🎵 Now Playing')
+                .setTitle('Dang phat')
                 .setDescription(`**[${song.title}](${song.url})**`)
                 .addFields(
-                    { name: '⏱ Duration', value: song.duration, inline: true },
-                    { name: '👤 Requested by', value: song.requestedBy, inline: true }
+                    { name: 'Thoi luong', value: song.duration, inline: true },
+                    { name: 'Nguoi yeu cau', value: song.requestedBy, inline: true }
                 );
             if (song.thumbnail) embed.setThumbnail(song.thumbnail);
             this.textChannel?.send({ embeds: [embed] });
         } catch (error) {
             console.error('[Stream Error]:', error.message);
-            this.textChannel?.send(`❌ Could not stream **${song.title}**. Skipping...`);
+            this.textChannel?.send(`Khong the phat **${song.title}**. Dang bo qua...`);
             this.songs.shift();
             if (this.songs.length > 0) {
                 await this._startPlaying();

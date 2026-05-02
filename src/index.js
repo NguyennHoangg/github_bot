@@ -57,7 +57,7 @@ client.on('voiceStateUpdate', (oldState) => {
     if (humans.size === 0) {
         const queue = queues.get(oldState.guild.id);
         if (queue) {
-            queue.textChannel?.send('👋 Everyone left, disconnecting!');
+            queue.textChannel?.send('Tat ca moi nguoi da roi kenh thoai. Bot ngat ket noi.');
             queue.stop();
         }
     }

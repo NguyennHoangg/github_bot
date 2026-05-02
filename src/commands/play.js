@@ -20,12 +20,12 @@ module.exports = {
         const voiceChannel = interaction.member.voice.channel;
 
         if (!voiceChannel) {
-            return interaction.editReply('❌ You must be in a voice channel first!');
+            return interaction.editReply('Ban phai o trong mot kenh thoai truoc!');
         }
 
         const perms = voiceChannel.permissionsFor(interaction.client.user);
         if (!perms.has(PermissionFlagsBits.Connect) || !perms.has(PermissionFlagsBits.Speak)) {
-            return interaction.editReply('❌ I need **Connect** and **Speak** permissions in that voice channel!');
+            return interaction.editReply('Bot can quyen Ket Noi va Noi trong kenh thoai do!');
         }
 
         try {
@@ -37,7 +37,7 @@ module.exports = {
                 details = info.video_details;
             } else {
                 const results = await play.search(query, { limit: 1 });
-                if (!results.length) return interaction.editReply('❌ No results found!');
+                if (!results.length) return interaction.editReply('Khong tim thay ket qua nao!');
                 details = results[0];
                 url = details.url;
             }
@@ -70,20 +70,20 @@ module.exports = {
             if (!wasEmpty) {
                 const embed = new EmbedBuilder()
                     .setColor(0x5865F2)
-                    .setTitle('➕ Added to Queue')
+                    .setTitle('Da them vao hang cho')
                     .setDescription(`**[${song.title}](${song.url})**`)
                     .addFields(
-                        { name: '⏱ Duration', value: song.duration, inline: true },
-                        { name: '📋 Position', value: `#${queue.songs.length}`, inline: true }
+                        { name: 'Thoi luong', value: song.duration, inline: true },
+                        { name: 'Vi tri', value: `#${queue.songs.length}`, inline: true }
                     );
                 if (song.thumbnail) embed.setThumbnail(song.thumbnail);
                 return interaction.editReply({ embeds: [embed] });
             }
 
-            return interaction.editReply(`▶️ Loading **${song.title}**...`);
+            return interaction.editReply(`Dang tai **${song.title}**...`);
         } catch (err) {
             console.error('[play]', err);
-            return interaction.editReply('❌ Failed to play. Try a different song or URL.');
+            return interaction.editReply('Khong the phat bai hat. Vui long thu bai khac hoac URL khac.');
         }
     },
 };
